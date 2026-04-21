@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Simple Blog
+        <form id="postForm">
+            <h2>create a New post</h2>
+            <input type="text" id="title" placeholder="post title" required>
+            <input type="text" id="image" placeholder="url(optional)" required>
+            <textarea id="content" placeholder="write your post here..." required></textarea>
+            <button type="submit">add post</button>
+        </form>
+        <h2>All posts</h2>
+        <div id="posts"></div>
+    </h1>
+    <script src="localstorage.js"></script>
+</body>
+</html>

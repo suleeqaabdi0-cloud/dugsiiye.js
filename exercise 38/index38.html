@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange: #D95F2B;
+      --dark: #1A1208;
+      --nav-h: 64px;
+    }
+
+    html { scroll-behavior: smooth; font-family: 'DM Sans', sans-serif; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      transition: background 0.3s;
+    }
+    nav.scrolled { background: rgba(26,18,8,0.92); backdrop-filter: blur(8px); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: #fff;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: #fff; text-decoration: none;
+      font-size: 0.88rem; letter-spacing: 0.06em;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+
+    section {
+      width: 100%; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700; color: #fff;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    section.visible .section-label { opacity: 1; transform: translateY(0); }
+
+    #home     { background: #D95F2B; }
+    #about    { background: #1A1208; }
+    #services { background: #2E4A3E; }
+    #portfolio{ background: #1E2E4A; }
+    #blog     { background: #4A2E1E; }
+    #careers  { background: #2E1E4A; }
+    #contact  { background: #1E4A3A; }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none; flex-direction: column; gap: 1.4rem;
+        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        background: rgba(26,18,8,0.97); padding: 2rem;
+      }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-logo">My Website</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#careers">Careers</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <section id="home"><h1 class="section-label">Home Section</h1></section>
+  <section id="about"><h1 class="section-label">About Section</h1></section>
+  <section id="services"><h1 class="section-label">Services Section</h1></section>
+  <section id="portfolio"><h1 class="section-label">Portfolio Section</h1></section>
+  <section id="blog"><h1 class="section-label">Blog Section</h1></section>
+  <section id="careers"><h1 class="section-label">Careers Section</h1></section>
+  <section id="contact"><h1 class="section-label">Contact Section</h1></section>
+
+  <script src="working.js">
+  </script>
+</body>
+</html>
