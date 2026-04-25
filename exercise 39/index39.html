@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Translator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  font-family: Arial;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 25px;
+  width: 400px;
+  border-radius: 10px;
+}
+
+select, textarea, button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+button {
+  background: green;
+  color: white;
+  border: none;
+}
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Language Translator</h1>
+
+  <label>From:</label>
+  <select id="fromLang"></select>
+
+  <label>To:</label>
+  <select id="toLang"></select>
+
+  <textarea id="text" placeholder="Enter text..."></textarea>
+
+  <button onclick="translateText()">Translate</button>
+
+  <h3>Translated Text:</h3>
+  <p id="result"></p>
+</div>
+
+<script src="api.js"></script>
+</body>
+</html>

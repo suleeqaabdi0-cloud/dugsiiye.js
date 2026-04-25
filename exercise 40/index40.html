@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Video Player</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#ebe6e6;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.player{
+  width:320px;
+  background:#797171;
+  padding:15px;
+  border-radius:15px;
+  color:#fff;
+  box-shadow:0 5px 25px rgba(0,0,0,0.5);
+}
+
+video{
+  width:100%;
+  border-radius:10px;
+}
+
+.title{margin:10px 0 3px;font-weight:bold;}
+.artist{color:#aaa;font-size:13px;}
+
+.progress-bar{
+  height:5px;
+  background:#333;
+  margin:10px 0;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+.progress{
+  height:100%;
+  width:0%;
+  background:#ff4c4c;
+  border-radius:5px;
+}
+
+.time{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:#aaa;
+}
+
+.controls{
+  text-align:center;
+  margin:10px 0;
+}
+
+.controls button{
+  font-size:18px;
+  margin:0 10px;
+  border:none;
+  background:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+.bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+input{
+  width:100px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+
+ <video id="video" class="video" src="video.mp4"></video>
+
+  <div class="title" id="title"></div>
+  <div class="artist" id="artist"></div>
+
+  <div class="progress-bar" id="progressBar">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <div class="time">
+    <span id="current">0:00</span>
+    <span id="duration">0:00</span>
+  </div>
+
+  <div class="controls">
+    <button id="prev">⏮</button>
+    <button id="play">▶</button>
+    <button id="next">⏭</button>
+  </div>
+
+  <div class="bottom">
+    <input type="range" id="volume" min="0" max="1" step="0.1">
+    
+    <select id="speed">
+      <option value="1">1x</option>
+      <option value="1.5">1.5x</option>
+      <option value="2">2x</option>
+    </select>
+  </div>
+
+</div>
+
+<script>
+const video = document.getElementById("video");
+const playBtn = document.getElementById("play");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const title = document.getElementById("title");
+const artist = document.getElementById("artist");
+const progress = document.getElementById("progress");
+const progressBar = document.getElementById("progressBar");
+const current = document.getElementById("current");
+const duration = document.getElementById("duration");
+const volume = document.getElementById("volume");
+const speed = document.getElementById("speed");
+
+// VIDEOS
+const videos = [
+  {
+    title:"Video One",
+    artist:"Artist One",
+    src:"1.mp4"
+  },
+  {
+    title:"Video Two",
+    artist:"Artist Two",
+    src:"2.mp4"
+  },
+  {
+    title:"Video Three",
+    artist:"Artist three",
+    src:"3.mp4"
+  }
+];
+
+let index = 0;
+let isPlaying = false;
+
+// LOAD
+function loadVideo(v){
+  title.innerText = v.title;
+  artist.innerText = v.artist;
+  video.src = v.src;
+}
+loadVideo(videos[index]);
+
+// PLAY / PAUSE
+function playVideo(){
+  video.play();
+  playBtn.innerText = "⏸";
+  isPlaying = true;
+}
+
+function pauseVideo(){
+  video.pause();
+  playBtn.innerText = "▶";
+  isPlaying = false;
+}
+
+playBtn.onclick = () => {
+  isPlaying ? pauseVideo() : playVideo();
+};
+
+// NEXT / PREV
+nextBtn.onclick = () => {
+  index++;
+  if(index >= videos.length) index = 0;
+  loadVideo(videos[index]);
+  playVideo();
+};
+
+prevBtn.onclick = () => {
+  index--;
+  if(index < 0) index = videos.length - 1;
+  loadVideo(videos[index]);
+  playVideo();
+};
+
+// TIME UPDATE
+video.addEventListener("timeupdate", () => {
+  if(!video.duration) return;
+
+  const percent = (video.currentTime / video.duration) * 100;
+  progress.style.width = percent + "%";
+
+  current.innerText = format(video.currentTime);
+  duration.innerText = format(video.duration);
+});
+
+// SEEK
+progressBar.addEventListener("click", (e)=>{
+  const width = progressBar.clientWidth;
+  const clickX = e.offsetX;
+  video.currentTime = (clickX / width) * video.duration;
+});
+
+// VOLUME
+volume.oninput = () => {
+  video.volume = volume.value;
+};
+
+// SPEED
+speed.onchange = () => {
+  video.playbackRate = speed.value;
+};
+
+// AUTO NEXT
+video.addEventListener("ended", ()=>{
+  nextBtn.click();
+});
+
+// FORMAT TIME
+function format(t){
+  let m = Math.floor(t/60);
+  let s = Math.floor(t%60);
+  if(s<10) s="0"+s;
+  return m+":"+s;
+}
+</script>
+
+</body>
+</html>
