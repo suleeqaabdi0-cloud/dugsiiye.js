@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News App Pro</title>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<header>
+  <h1> World News </h1>
+
+  <input id="search" placeholder="Search news...">
+  <button onclick="searchNews()">Search</button>
+
+  <nav>
+    <button onclick="getNews('all')">All</button>
+    <button onclick="getNews('sports')">Sports</button>
+    <button onclick="getNews('politics')">Politics</button>
+    <button onclick="getNews('technology')">Tech</button>
+    <button onclick="showSaved()">Saved</button>
+  </nav>
+</header>
+
+<div class="container">
+
+  <div id="home" class="page active">
+    <div id="news" class="news"></div>
+  </div>
+
+  <div id="savedPage" class="page">
+    <h2>Saved News</h2>
+    <div id="saved"></div>
+  </div>
+
+</div>
+
+
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalContent"></div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
